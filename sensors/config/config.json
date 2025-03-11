@@ -12,7 +12,6 @@
     "NUM_FRAMES": 10,
     "PATHS": {
         "LOG_FILE": "./dataset/stress_log.txt",
-        "VIDEO_FILE": "./dataset/stress_detection_output.mp4",
         "GRAPH_FILE": "./dataset/stress_graph.png"
     }
 }

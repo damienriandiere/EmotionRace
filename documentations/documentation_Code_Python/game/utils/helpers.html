@@ -55,74 +55,126 @@
                     <h1 class="modulename">
 <a href="./../../game.html">game</a><wbr>.<a href="./../utils.html">utils</a><wbr>.helpers    </h1>
 
-                
+                        <div class="docstring"><p>utils.py</p>
+
+<p>This module provides utility functions for the Emotion Race game, including:</p>
+
+<ul>
+<li><code><a href="#draw_text">draw_text</a></code>: Draws text on the screen with an outline.</li>
+<li><code><a href="#load_image">load_image</a></code>: Loads and resizes images.</li>
+<li><code><a href="#play_music">play_music</a></code>: Plays background music in a loop.</li>
+</ul>
+
+<p>Dependencies:
+    - pygame: Used for rendering text, loading images, and handling audio.</p>
+
+<p>Usage Example:
+    screen = pygame.display.set_mode((800, 600))
+    font = pygame.font.Font(None, 36)
+    draw_text(screen, "Hello, World!", font, (255, 255, 255), 100, 100)</p>
+
+<pre><code>image = load_image("assets/images/player.png", 50, 50)
+if image:
+    screen.blit(image, (200, 200))
+
+play_music("assets/sounds/sound.mp3")
+</code></pre>
+
+<p>Author: [Damien RIANDIERE]</p>
+</div>
+
                         <input id="mod-helpers-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
                         <label class="view-source-button" for="mod-helpers-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">def</span><span class="w"> </span><span class="nf">draw_text</span><span class="p">(</span><span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">font</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">,</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>              <span class="n">color</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Draws text on the screen with an outline.</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    Args:</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">        screen (pygame.Surface): The screen to draw on.</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">        text (str): The text to draw.</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">        font (pygame.font.Font): The font to use for the text.</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">        color (tuple): The color of the text (RGB).</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">        x (int): The x-coordinate of the text&#39;s position.</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">        y (int): The y-coordinate of the text&#39;s position.</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">        outline_width (int): The width of the text outline.</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">text_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">outline_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Black outline</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">offsets</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">outline_width</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">)]</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="c1"># Draw only in 4 directions (left, right, top, bottom) for efficiency</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="n">offsets</span><span class="p">:</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">outline_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">))</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>  <span class="c1"># Main text</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="sd">utils.py</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="sd">This module provides utility functions for the Emotion Race game, including:</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">- `draw_text`: Draws text on the screen with an outline.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">- `load_image`: Loads and resizes images.</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">- `play_music`: Plays background music in a loop.</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">Dependencies:</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    - pygame: Used for rendering text, loading images, and handling audio.</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">Usage Example:</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    screen = pygame.display.set_mode((800, 600))</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    font = pygame.font.Font(None, 36)</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    draw_text(screen, &quot;Hello, World!&quot;, font, (255, 255, 255), 100, 100)</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    image = load_image(&quot;assets/images/player.png&quot;, 50, 50)</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    if image:</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">        screen.blit(image, (200, 200))</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    play_music(&quot;assets/sounds/sound.mp3&quot;)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">Author: [Damien RIANDIERE]</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="k">def</span><span class="w"> </span><span class="nf">load_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">:</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    Loads an image from a file and optionally resizes it.</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">    Args:</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">        image_path (str): The path to the image file.</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">        width (int): The desired width of the image (optional).</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">        height (int): The desired height of the image (optional).</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    Returns:</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">        pygame.Surface: The loaded and resized image, or None if failed.</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de l&#39;image </span><span class="si">{</span><span class="n">image_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>        <span class="k">return</span> <span class="kc">None</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="c1"># Determine the new size</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="n">new_width</span> <span class="o">=</span> <span class="n">width</span> <span class="k">if</span> <span class="n">width</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="n">new_height</span> <span class="o">=</span> <span class="n">height</span> <span class="k">if</span> <span class="n">height</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">))</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="k">def</span><span class="w"> </span><span class="nf">play_music</span><span class="p">(</span><span class="n">music_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">    Plays background music in a loop.</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    Args:</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">        music_path (str): The path to the music file.</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">music_path</span><span class="p">)</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de la musique </span><span class="si">{</span><span class="n">music_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="k">def</span><span class="w"> </span><span class="nf">draw_text</span><span class="p">(</span><span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">font</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>              <span class="n">color</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">    Draws text on the screen with an outline.</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">    Args:</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">        screen (pygame.Surface): The screen to draw on.</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">        text (str): The text to draw.</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">        font (pygame.font.Font): The font to use for the text.</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">        color (tuple): The color of the text (RGB).</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">        x (int): The x-coordinate of the text&#39;s position.</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">        y (int): The y-coordinate of the text&#39;s position.</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="sd">        outline_width (int): The width of the text outline.</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="n">text_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="n">outline_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Black outline</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="n">offsets</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">outline_width</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">)]</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="c1"># Draw only in 4 directions (left, right, top, bottom) for efficiency</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="n">offsets</span><span class="p">:</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">outline_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">))</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>  <span class="c1"># Main text</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="k">def</span><span class="w"> </span><span class="nf">load_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">:</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">    Loads an image from a file and optionally resizes it.</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">    Args:</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">        image_path (str): The path to the image file.</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">        width (int): The desired width of the image (optional).</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">        height (int): The desired height of the image (optional).</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">    Returns:</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="sd">        pygame.Surface: The loaded and resized image, or None if failed.</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de l&#39;image </span><span class="si">{</span><span class="n">image_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>        <span class="k">return</span> <span class="kc">None</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>    <span class="c1"># Determine the new size</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>    <span class="n">new_width</span> <span class="o">=</span> <span class="n">width</span> <span class="k">if</span> <span class="n">width</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>    <span class="n">new_height</span> <span class="o">=</span> <span class="n">height</span> <span class="k">if</span> <span class="n">height</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a>    <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">))</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="k">def</span><span class="w"> </span><span class="nf">play_music</span><span class="p">(</span><span class="n">music_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="sd">    Plays background music in a loop.</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>
+</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a><span class="sd">    Args:</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a><span class="sd">        music_path (str): The path to the music file.</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">music_path</span><span class="p">)</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de la musique </span><span class="si">{</span><span class="n">music_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -138,30 +190,30 @@
 
     </div>
     <a class="headerlink" href="#draw_text"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="draw_text-4"><a href="#draw_text-4"><span class="linenos"> 4</span></a><span class="k">def</span><span class="w"> </span><span class="nf">draw_text</span><span class="p">(</span><span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">font</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">,</span>
-</span><span id="draw_text-5"><a href="#draw_text-5"><span class="linenos"> 5</span></a>              <span class="n">color</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="draw_text-6"><a href="#draw_text-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="draw_text-7"><a href="#draw_text-7"><span class="linenos"> 7</span></a><span class="sd">    Draws text on the screen with an outline.</span>
-</span><span id="draw_text-8"><a href="#draw_text-8"><span class="linenos"> 8</span></a>
-</span><span id="draw_text-9"><a href="#draw_text-9"><span class="linenos"> 9</span></a><span class="sd">    Args:</span>
-</span><span id="draw_text-10"><a href="#draw_text-10"><span class="linenos">10</span></a><span class="sd">        screen (pygame.Surface): The screen to draw on.</span>
-</span><span id="draw_text-11"><a href="#draw_text-11"><span class="linenos">11</span></a><span class="sd">        text (str): The text to draw.</span>
-</span><span id="draw_text-12"><a href="#draw_text-12"><span class="linenos">12</span></a><span class="sd">        font (pygame.font.Font): The font to use for the text.</span>
-</span><span id="draw_text-13"><a href="#draw_text-13"><span class="linenos">13</span></a><span class="sd">        color (tuple): The color of the text (RGB).</span>
-</span><span id="draw_text-14"><a href="#draw_text-14"><span class="linenos">14</span></a><span class="sd">        x (int): The x-coordinate of the text&#39;s position.</span>
-</span><span id="draw_text-15"><a href="#draw_text-15"><span class="linenos">15</span></a><span class="sd">        y (int): The y-coordinate of the text&#39;s position.</span>
-</span><span id="draw_text-16"><a href="#draw_text-16"><span class="linenos">16</span></a><span class="sd">        outline_width (int): The width of the text outline.</span>
-</span><span id="draw_text-17"><a href="#draw_text-17"><span class="linenos">17</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="draw_text-18"><a href="#draw_text-18"><span class="linenos">18</span></a>    <span class="n">text_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
-</span><span id="draw_text-19"><a href="#draw_text-19"><span class="linenos">19</span></a>    <span class="n">outline_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Black outline</span>
-</span><span id="draw_text-20"><a href="#draw_text-20"><span class="linenos">20</span></a>
-</span><span id="draw_text-21"><a href="#draw_text-21"><span class="linenos">21</span></a>    <span class="n">offsets</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">outline_width</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">)]</span>
-</span><span id="draw_text-22"><a href="#draw_text-22"><span class="linenos">22</span></a>    
-</span><span id="draw_text-23"><a href="#draw_text-23"><span class="linenos">23</span></a>    <span class="c1"># Draw only in 4 directions (left, right, top, bottom) for efficiency</span>
-</span><span id="draw_text-24"><a href="#draw_text-24"><span class="linenos">24</span></a>    <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="n">offsets</span><span class="p">:</span>
-</span><span id="draw_text-25"><a href="#draw_text-25"><span class="linenos">25</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">outline_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">))</span>
-</span><span id="draw_text-26"><a href="#draw_text-26"><span class="linenos">26</span></a>
-</span><span id="draw_text-27"><a href="#draw_text-27"><span class="linenos">27</span></a>    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>  <span class="c1"># Main text</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="draw_text-29"><a href="#draw_text-29"><span class="linenos">29</span></a><span class="k">def</span><span class="w"> </span><span class="nf">draw_text</span><span class="p">(</span><span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">font</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">,</span>
+</span><span id="draw_text-30"><a href="#draw_text-30"><span class="linenos">30</span></a>              <span class="n">color</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="draw_text-31"><a href="#draw_text-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="draw_text-32"><a href="#draw_text-32"><span class="linenos">32</span></a><span class="sd">    Draws text on the screen with an outline.</span>
+</span><span id="draw_text-33"><a href="#draw_text-33"><span class="linenos">33</span></a>
+</span><span id="draw_text-34"><a href="#draw_text-34"><span class="linenos">34</span></a><span class="sd">    Args:</span>
+</span><span id="draw_text-35"><a href="#draw_text-35"><span class="linenos">35</span></a><span class="sd">        screen (pygame.Surface): The screen to draw on.</span>
+</span><span id="draw_text-36"><a href="#draw_text-36"><span class="linenos">36</span></a><span class="sd">        text (str): The text to draw.</span>
+</span><span id="draw_text-37"><a href="#draw_text-37"><span class="linenos">37</span></a><span class="sd">        font (pygame.font.Font): The font to use for the text.</span>
+</span><span id="draw_text-38"><a href="#draw_text-38"><span class="linenos">38</span></a><span class="sd">        color (tuple): The color of the text (RGB).</span>
+</span><span id="draw_text-39"><a href="#draw_text-39"><span class="linenos">39</span></a><span class="sd">        x (int): The x-coordinate of the text&#39;s position.</span>
+</span><span id="draw_text-40"><a href="#draw_text-40"><span class="linenos">40</span></a><span class="sd">        y (int): The y-coordinate of the text&#39;s position.</span>
+</span><span id="draw_text-41"><a href="#draw_text-41"><span class="linenos">41</span></a><span class="sd">        outline_width (int): The width of the text outline.</span>
+</span><span id="draw_text-42"><a href="#draw_text-42"><span class="linenos">42</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="draw_text-43"><a href="#draw_text-43"><span class="linenos">43</span></a>    <span class="n">text_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+</span><span id="draw_text-44"><a href="#draw_text-44"><span class="linenos">44</span></a>    <span class="n">outline_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Black outline</span>
+</span><span id="draw_text-45"><a href="#draw_text-45"><span class="linenos">45</span></a>
+</span><span id="draw_text-46"><a href="#draw_text-46"><span class="linenos">46</span></a>    <span class="n">offsets</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">outline_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">outline_width</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">outline_width</span><span class="p">)]</span>
+</span><span id="draw_text-47"><a href="#draw_text-47"><span class="linenos">47</span></a>
+</span><span id="draw_text-48"><a href="#draw_text-48"><span class="linenos">48</span></a>    <span class="c1"># Draw only in 4 directions (left, right, top, bottom) for efficiency</span>
+</span><span id="draw_text-49"><a href="#draw_text-49"><span class="linenos">49</span></a>    <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="n">offsets</span><span class="p">:</span>
+</span><span id="draw_text-50"><a href="#draw_text-50"><span class="linenos">50</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">outline_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">))</span>
+</span><span id="draw_text-51"><a href="#draw_text-51"><span class="linenos">51</span></a>
+</span><span id="draw_text-52"><a href="#draw_text-52"><span class="linenos">52</span></a>    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>  <span class="c1"># Main text</span>
 </span></pre></div>
 
 
@@ -190,29 +242,29 @@
 
     </div>
     <a class="headerlink" href="#load_image"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="load_image-29"><a href="#load_image-29"><span class="linenos">29</span></a><span class="k">def</span><span class="w"> </span><span class="nf">load_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">:</span>
-</span><span id="load_image-30"><a href="#load_image-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="load_image-31"><a href="#load_image-31"><span class="linenos">31</span></a><span class="sd">    Loads an image from a file and optionally resizes it.</span>
-</span><span id="load_image-32"><a href="#load_image-32"><span class="linenos">32</span></a>
-</span><span id="load_image-33"><a href="#load_image-33"><span class="linenos">33</span></a><span class="sd">    Args:</span>
-</span><span id="load_image-34"><a href="#load_image-34"><span class="linenos">34</span></a><span class="sd">        image_path (str): The path to the image file.</span>
-</span><span id="load_image-35"><a href="#load_image-35"><span class="linenos">35</span></a><span class="sd">        width (int): The desired width of the image (optional).</span>
-</span><span id="load_image-36"><a href="#load_image-36"><span class="linenos">36</span></a><span class="sd">        height (int): The desired height of the image (optional).</span>
-</span><span id="load_image-37"><a href="#load_image-37"><span class="linenos">37</span></a>
-</span><span id="load_image-38"><a href="#load_image-38"><span class="linenos">38</span></a><span class="sd">    Returns:</span>
-</span><span id="load_image-39"><a href="#load_image-39"><span class="linenos">39</span></a><span class="sd">        pygame.Surface: The loaded and resized image, or None if failed.</span>
-</span><span id="load_image-40"><a href="#load_image-40"><span class="linenos">40</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="load_image-41"><a href="#load_image-41"><span class="linenos">41</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="load_image-42"><a href="#load_image-42"><span class="linenos">42</span></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
-</span><span id="load_image-43"><a href="#load_image-43"><span class="linenos">43</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="load_image-44"><a href="#load_image-44"><span class="linenos">44</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de l&#39;image </span><span class="si">{</span><span class="n">image_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="load_image-45"><a href="#load_image-45"><span class="linenos">45</span></a>        <span class="k">return</span> <span class="kc">None</span>
-</span><span id="load_image-46"><a href="#load_image-46"><span class="linenos">46</span></a>
-</span><span id="load_image-47"><a href="#load_image-47"><span class="linenos">47</span></a>    <span class="c1"># Determine the new size</span>
-</span><span id="load_image-48"><a href="#load_image-48"><span class="linenos">48</span></a>    <span class="n">new_width</span> <span class="o">=</span> <span class="n">width</span> <span class="k">if</span> <span class="n">width</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
-</span><span id="load_image-49"><a href="#load_image-49"><span class="linenos">49</span></a>    <span class="n">new_height</span> <span class="o">=</span> <span class="n">height</span> <span class="k">if</span> <span class="n">height</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
-</span><span id="load_image-50"><a href="#load_image-50"><span class="linenos">50</span></a>
-</span><span id="load_image-51"><a href="#load_image-51"><span class="linenos">51</span></a>    <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">))</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="load_image-54"><a href="#load_image-54"><span class="linenos">54</span></a><span class="k">def</span><span class="w"> </span><span class="nf">load_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">:</span>
+</span><span id="load_image-55"><a href="#load_image-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="load_image-56"><a href="#load_image-56"><span class="linenos">56</span></a><span class="sd">    Loads an image from a file and optionally resizes it.</span>
+</span><span id="load_image-57"><a href="#load_image-57"><span class="linenos">57</span></a>
+</span><span id="load_image-58"><a href="#load_image-58"><span class="linenos">58</span></a><span class="sd">    Args:</span>
+</span><span id="load_image-59"><a href="#load_image-59"><span class="linenos">59</span></a><span class="sd">        image_path (str): The path to the image file.</span>
+</span><span id="load_image-60"><a href="#load_image-60"><span class="linenos">60</span></a><span class="sd">        width (int): The desired width of the image (optional).</span>
+</span><span id="load_image-61"><a href="#load_image-61"><span class="linenos">61</span></a><span class="sd">        height (int): The desired height of the image (optional).</span>
+</span><span id="load_image-62"><a href="#load_image-62"><span class="linenos">62</span></a>
+</span><span id="load_image-63"><a href="#load_image-63"><span class="linenos">63</span></a><span class="sd">    Returns:</span>
+</span><span id="load_image-64"><a href="#load_image-64"><span class="linenos">64</span></a><span class="sd">        pygame.Surface: The loaded and resized image, or None if failed.</span>
+</span><span id="load_image-65"><a href="#load_image-65"><span class="linenos">65</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="load_image-66"><a href="#load_image-66"><span class="linenos">66</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="load_image-67"><a href="#load_image-67"><span class="linenos">67</span></a>        <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+</span><span id="load_image-68"><a href="#load_image-68"><span class="linenos">68</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="load_image-69"><a href="#load_image-69"><span class="linenos">69</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de l&#39;image </span><span class="si">{</span><span class="n">image_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="load_image-70"><a href="#load_image-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="kc">None</span>
+</span><span id="load_image-71"><a href="#load_image-71"><span class="linenos">71</span></a>
+</span><span id="load_image-72"><a href="#load_image-72"><span class="linenos">72</span></a>    <span class="c1"># Determine the new size</span>
+</span><span id="load_image-73"><a href="#load_image-73"><span class="linenos">73</span></a>    <span class="n">new_width</span> <span class="o">=</span> <span class="n">width</span> <span class="k">if</span> <span class="n">width</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+</span><span id="load_image-74"><a href="#load_image-74"><span class="linenos">74</span></a>    <span class="n">new_height</span> <span class="o">=</span> <span class="n">height</span> <span class="k">if</span> <span class="n">height</span> <span class="k">else</span> <span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+</span><span id="load_image-75"><a href="#load_image-75"><span class="linenos">75</span></a>
+</span><span id="load_image-76"><a href="#load_image-76"><span class="linenos">76</span></a>    <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">))</span>
 </span></pre></div>
 
 
@@ -240,18 +292,18 @@
 
     </div>
     <a class="headerlink" href="#play_music"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="play_music-53"><a href="#play_music-53"><span class="linenos">53</span></a><span class="k">def</span><span class="w"> </span><span class="nf">play_music</span><span class="p">(</span><span class="n">music_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="play_music-54"><a href="#play_music-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="play_music-55"><a href="#play_music-55"><span class="linenos">55</span></a><span class="sd">    Plays background music in a loop.</span>
-</span><span id="play_music-56"><a href="#play_music-56"><span class="linenos">56</span></a>
-</span><span id="play_music-57"><a href="#play_music-57"><span class="linenos">57</span></a><span class="sd">    Args:</span>
-</span><span id="play_music-58"><a href="#play_music-58"><span class="linenos">58</span></a><span class="sd">        music_path (str): The path to the music file.</span>
-</span><span id="play_music-59"><a href="#play_music-59"><span class="linenos">59</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="play_music-60"><a href="#play_music-60"><span class="linenos">60</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="play_music-61"><a href="#play_music-61"><span class="linenos">61</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">music_path</span><span class="p">)</span>
-</span><span id="play_music-62"><a href="#play_music-62"><span class="linenos">62</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-</span><span id="play_music-63"><a href="#play_music-63"><span class="linenos">63</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="play_music-64"><a href="#play_music-64"><span class="linenos">64</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de la musique </span><span class="si">{</span><span class="n">music_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="play_music-78"><a href="#play_music-78"><span class="linenos">78</span></a><span class="k">def</span><span class="w"> </span><span class="nf">play_music</span><span class="p">(</span><span class="n">music_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="play_music-79"><a href="#play_music-79"><span class="linenos">79</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="play_music-80"><a href="#play_music-80"><span class="linenos">80</span></a><span class="sd">    Plays background music in a loop.</span>
+</span><span id="play_music-81"><a href="#play_music-81"><span class="linenos">81</span></a>
+</span><span id="play_music-82"><a href="#play_music-82"><span class="linenos">82</span></a><span class="sd">    Args:</span>
+</span><span id="play_music-83"><a href="#play_music-83"><span class="linenos">83</span></a><span class="sd">        music_path (str): The path to the music file.</span>
+</span><span id="play_music-84"><a href="#play_music-84"><span class="linenos">84</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="play_music-85"><a href="#play_music-85"><span class="linenos">85</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="play_music-86"><a href="#play_music-86"><span class="linenos">86</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">music_path</span><span class="p">)</span>
+</span><span id="play_music-87"><a href="#play_music-87"><span class="linenos">87</span></a>        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+</span><span id="play_music-88"><a href="#play_music-88"><span class="linenos">88</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="play_music-89"><a href="#play_music-89"><span class="linenos">89</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erreur lors du chargement de la musique </span><span class="si">{</span><span class="n">music_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 

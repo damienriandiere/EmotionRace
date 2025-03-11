@@ -294,7 +294,6 @@ class Game:
     def __draw_elements(self) -> None:
         """Draw all game elements on the screen."""
         self.__draw_background()
-        self.__draw_game_info()
         self.__player.draw(self.__screen)
 
         for obstacle in self.__obstacles:
@@ -308,6 +307,8 @@ class Game:
                 self.__draw_blurred_background(width=200, factor=20)
             elif self.__stress_state == 'STRESSED':
                 self.__draw_blurred_background(width=400, factor=50)
+
+        self.__draw_game_info()
 
         self.__screen.blit(self.__logout_img, self.__logout_rect.topleft)
 

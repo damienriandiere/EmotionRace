@@ -20,6 +20,7 @@ En adaptant la difficulté du jeu en temps réel en fonction des réactions phys
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Fonctionnalités](#fonctionnalités)
+- [Documentation](#documentation)
 - [Contribuer](#contribuer)
 - [Licence](#licence)
 - [Auteurs](#auteurs)
@@ -41,20 +42,20 @@ pip install -r requirements.txt
 ## Utilisation
 Une fois le projet installé et les capteurs positionnés, suivez ces étapes pour l'utilissation : 
 
-1. **Lancez la collecte des données physiologiques** :  
+1. **Lancez la collecte des données physiologiques dans un premier terminal** :  
    ```bash
-   python sensors/stress_detection.py
+   python -m sensors.stress_detection
    ```
 
 2. ⏳ **Attendre que la calibration se fasse** : 
    La calibration prend 20 secondes. Pendant ce temps, restez calme et immobile.
 
-3. **Lancez le jeu** : 
+3. **Ouvrez un nouveau terminal et lancez le jeu** : 
    ```bash
-   python -m game.main.py
+   python -m game.main
    ```
    
-Des fichiers de configuration sont disponibles **(/config/config.json)** dans les repertoires dédiés respectivement au jeu (*game*) et à la collecte et le traitement des données (*sensors*).
+Des fichiers de configuration sont disponibles **(/config/config.json)** dans les repertoires dédiés respectivement au jeu (*game*) et à la collecte et le traitement des données (*sensors*). Vous pouvez changer les paramètres afin d'adapter le projet à vos souhaits.
 
 ## Fonctionnalités  
 
@@ -75,6 +76,17 @@ Des fichiers de configuration sont disponibles **(/config/config.json)** dans le
 ### 🔧 Personnalisation  
 ✔️ Possibilité d’ajuster certains paramètres du jeu (*sensibilité au stress, effet de flou*).  
 ✔️ Possibilité de jouer sans les capteurs.  
+
+## Documentation
+
+Le répertoire `documentations` contient plusieurs ressources utiles pour comprendre le projet en détail :
+
+- 🎥 **Vidéo Elevator Pitch + Démonstration** : Présentation rapide du projet et démonstration du gameplay (au format MP4).  
+- 📄 **Rapport du projet** : Document détaillant les aspects techniques et méthodologiques du projet (au format PDF et DOCX).  
+- 📂 **Documentation du code** : Un sous-répertoire contenant la documentation technique du code source.
+- 🖼️ **Présentation PowerPoint** : Diaporama expliquant le projet (au format PDF).
+
+Vous pouvez explorer ces fichiers pour mieux comprendre l’architecture et le fonctionnement du projet.  
 
 ## Contribuer
 

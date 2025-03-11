@@ -135,79 +135,81 @@ is alive or not.</p>
 </span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">            player_file_path (str): The path to the player&#39;s image file.</span>
 </span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">=</span> <span class="n">height</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">player_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Smaller hitbox for better collision detection</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jump_strength</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">        Makes the player jump if they are on the ground and alive.</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="sd">        Args:</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a><span class="sd">            jump_strength (int): The strength of the jump.</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="n">jump_strength</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a><span class="sd">        Updates the player&#39;s position based on gravity and velocity.</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
-</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="sd">        Args:</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="sd">            gravity (int): The gravity affecting the player.</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">+=</span> <span class="n">gravity</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>            <span class="c1"># Prevent the player from falling below the ground</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span><span class="p">:</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>            <span class="c1"># Update the hitbox to follow the player</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">        Draws the player on the screen.</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">        Args:</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">        Checks if the player is alive.</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">        Returns:</span>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">            bool: True if the player is alive, False otherwise.</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="sd">        Sets the player&#39;s alive status.</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">        Args:</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">            alive (bool): The new alive status.</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="n">alive</span>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="sd">        Gets the player&#39;s hitbox.</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">        Returns:</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">            pygame.Rect: The player&#39;s hitbox.</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">player_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>                                              <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>        <span class="c1"># Smaller hitbox for better collision detection</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jump_strength</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="sd">        Makes the player jump if they are on the ground and alive.</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="sd">        Args:</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="sd">            jump_strength (int): The strength of the jump.</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="n">jump_strength</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="sd">        Updates the player&#39;s position based on gravity and velocity.</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="sd">        Args:</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a><span class="sd">            gravity (int): The gravity affecting the player.</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">+=</span> <span class="n">gravity</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>            <span class="c1"># Prevent the player from falling below the ground</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>            <span class="c1"># Update the hitbox to follow the player</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">        Draws the player on the screen.</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">        Args:</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">        Checks if the player is alive.</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="sd">        Returns:</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">            bool: True if the player is alive, False otherwise.</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">        Sets the player&#39;s alive status.</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">        Args:</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">            alive (bool): The new alive status.</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="n">alive</span>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">        Gets the player&#39;s hitbox.</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="sd">        Returns:</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="sd">            pygame.Rect: The player&#39;s hitbox.</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
 </span></pre></div>
 
 
@@ -246,79 +248,81 @@ is alive or not.</p>
 </span><span id="Player-41"><a href="#Player-41"><span class="linenos"> 41</span></a><span class="sd">            player_file_path (str): The path to the player&#39;s image file.</span>
 </span><span id="Player-42"><a href="#Player-42"><span class="linenos"> 42</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Player-43"><a href="#Player-43"><span class="linenos"> 43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">=</span> <span class="n">height</span>
-</span><span id="Player-44"><a href="#Player-44"><span class="linenos"> 44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">player_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-</span><span id="Player-45"><a href="#Player-45"><span class="linenos"> 45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
-</span><span id="Player-46"><a href="#Player-46"><span class="linenos"> 46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Smaller hitbox for better collision detection</span>
-</span><span id="Player-47"><a href="#Player-47"><span class="linenos"> 47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="Player-48"><a href="#Player-48"><span class="linenos"> 48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="Player-49"><a href="#Player-49"><span class="linenos"> 49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="Player-50"><a href="#Player-50"><span class="linenos"> 50</span></a>
-</span><span id="Player-51"><a href="#Player-51"><span class="linenos"> 51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jump_strength</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player-52"><a href="#Player-52"><span class="linenos"> 52</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player-53"><a href="#Player-53"><span class="linenos"> 53</span></a><span class="sd">        Makes the player jump if they are on the ground and alive.</span>
-</span><span id="Player-54"><a href="#Player-54"><span class="linenos"> 54</span></a>
-</span><span id="Player-55"><a href="#Player-55"><span class="linenos"> 55</span></a><span class="sd">        Args:</span>
-</span><span id="Player-56"><a href="#Player-56"><span class="linenos"> 56</span></a><span class="sd">            jump_strength (int): The strength of the jump.</span>
-</span><span id="Player-57"><a href="#Player-57"><span class="linenos"> 57</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player-58"><a href="#Player-58"><span class="linenos"> 58</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
-</span><span id="Player-59"><a href="#Player-59"><span class="linenos"> 59</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="n">jump_strength</span>
-</span><span id="Player-60"><a href="#Player-60"><span class="linenos"> 60</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="Player-61"><a href="#Player-61"><span class="linenos"> 61</span></a>
-</span><span id="Player-62"><a href="#Player-62"><span class="linenos"> 62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player-63"><a href="#Player-63"><span class="linenos"> 63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player-64"><a href="#Player-64"><span class="linenos"> 64</span></a><span class="sd">        Updates the player&#39;s position based on gravity and velocity.</span>
-</span><span id="Player-65"><a href="#Player-65"><span class="linenos"> 65</span></a>
-</span><span id="Player-66"><a href="#Player-66"><span class="linenos"> 66</span></a><span class="sd">        Args:</span>
-</span><span id="Player-67"><a href="#Player-67"><span class="linenos"> 67</span></a><span class="sd">            gravity (int): The gravity affecting the player.</span>
-</span><span id="Player-68"><a href="#Player-68"><span class="linenos"> 68</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player-69"><a href="#Player-69"><span class="linenos"> 69</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
-</span><span id="Player-70"><a href="#Player-70"><span class="linenos"> 70</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">+=</span> <span class="n">gravity</span>
-</span><span id="Player-71"><a href="#Player-71"><span class="linenos"> 71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span>
-</span><span id="Player-72"><a href="#Player-72"><span class="linenos"> 72</span></a>
-</span><span id="Player-73"><a href="#Player-73"><span class="linenos"> 73</span></a>            <span class="c1"># Prevent the player from falling below the ground</span>
-</span><span id="Player-74"><a href="#Player-74"><span class="linenos"> 74</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span><span class="p">:</span>
-</span><span id="Player-75"><a href="#Player-75"><span class="linenos"> 75</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span>
-</span><span id="Player-76"><a href="#Player-76"><span class="linenos"> 76</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="Player-77"><a href="#Player-77"><span class="linenos"> 77</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="Player-78"><a href="#Player-78"><span class="linenos"> 78</span></a>
-</span><span id="Player-79"><a href="#Player-79"><span class="linenos"> 79</span></a>            <span class="c1"># Update the hitbox to follow the player</span>
-</span><span id="Player-80"><a href="#Player-80"><span class="linenos"> 80</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>
-</span><span id="Player-81"><a href="#Player-81"><span class="linenos"> 81</span></a>
-</span><span id="Player-82"><a href="#Player-82"><span class="linenos"> 82</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player-83"><a href="#Player-83"><span class="linenos"> 83</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player-84"><a href="#Player-84"><span class="linenos"> 84</span></a><span class="sd">        Draws the player on the screen.</span>
-</span><span id="Player-85"><a href="#Player-85"><span class="linenos"> 85</span></a>
-</span><span id="Player-86"><a href="#Player-86"><span class="linenos"> 86</span></a><span class="sd">        Args:</span>
-</span><span id="Player-87"><a href="#Player-87"><span class="linenos"> 87</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
-</span><span id="Player-88"><a href="#Player-88"><span class="linenos"> 88</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player-89"><a href="#Player-89"><span class="linenos"> 89</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
-</span><span id="Player-90"><a href="#Player-90"><span class="linenos"> 90</span></a>
-</span><span id="Player-91"><a href="#Player-91"><span class="linenos"> 91</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Player-92"><a href="#Player-92"><span class="linenos"> 92</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player-93"><a href="#Player-93"><span class="linenos"> 93</span></a><span class="sd">        Checks if the player is alive.</span>
-</span><span id="Player-94"><a href="#Player-94"><span class="linenos"> 94</span></a>
-</span><span id="Player-95"><a href="#Player-95"><span class="linenos"> 95</span></a><span class="sd">        Returns:</span>
-</span><span id="Player-96"><a href="#Player-96"><span class="linenos"> 96</span></a><span class="sd">            bool: True if the player is alive, False otherwise.</span>
-</span><span id="Player-97"><a href="#Player-97"><span class="linenos"> 97</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player-98"><a href="#Player-98"><span class="linenos"> 98</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span>
-</span><span id="Player-99"><a href="#Player-99"><span class="linenos"> 99</span></a>
-</span><span id="Player-100"><a href="#Player-100"><span class="linenos">100</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player-101"><a href="#Player-101"><span class="linenos">101</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player-102"><a href="#Player-102"><span class="linenos">102</span></a><span class="sd">        Sets the player&#39;s alive status.</span>
-</span><span id="Player-103"><a href="#Player-103"><span class="linenos">103</span></a>
-</span><span id="Player-104"><a href="#Player-104"><span class="linenos">104</span></a><span class="sd">        Args:</span>
-</span><span id="Player-105"><a href="#Player-105"><span class="linenos">105</span></a><span class="sd">            alive (bool): The new alive status.</span>
-</span><span id="Player-106"><a href="#Player-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player-107"><a href="#Player-107"><span class="linenos">107</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="n">alive</span>
-</span><span id="Player-108"><a href="#Player-108"><span class="linenos">108</span></a>
-</span><span id="Player-109"><a href="#Player-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="Player-110"><a href="#Player-110"><span class="linenos">110</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player-111"><a href="#Player-111"><span class="linenos">111</span></a><span class="sd">        Gets the player&#39;s hitbox.</span>
-</span><span id="Player-112"><a href="#Player-112"><span class="linenos">112</span></a>
-</span><span id="Player-113"><a href="#Player-113"><span class="linenos">113</span></a><span class="sd">        Returns:</span>
-</span><span id="Player-114"><a href="#Player-114"><span class="linenos">114</span></a><span class="sd">            pygame.Rect: The player&#39;s hitbox.</span>
-</span><span id="Player-115"><a href="#Player-115"><span class="linenos">115</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player-116"><a href="#Player-116"><span class="linenos">116</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
+</span><span id="Player-44"><a href="#Player-44"><span class="linenos"> 44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">player_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span>
+</span><span id="Player-45"><a href="#Player-45"><span class="linenos"> 45</span></a>                                              <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</span><span id="Player-46"><a href="#Player-46"><span class="linenos"> 46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+</span><span id="Player-47"><a href="#Player-47"><span class="linenos"> 47</span></a>        <span class="c1"># Smaller hitbox for better collision detection</span>
+</span><span id="Player-48"><a href="#Player-48"><span class="linenos"> 48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="Player-49"><a href="#Player-49"><span class="linenos"> 49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="Player-50"><a href="#Player-50"><span class="linenos"> 50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="Player-51"><a href="#Player-51"><span class="linenos"> 51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Player-52"><a href="#Player-52"><span class="linenos"> 52</span></a>
+</span><span id="Player-53"><a href="#Player-53"><span class="linenos"> 53</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jump_strength</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player-54"><a href="#Player-54"><span class="linenos"> 54</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player-55"><a href="#Player-55"><span class="linenos"> 55</span></a><span class="sd">        Makes the player jump if they are on the ground and alive.</span>
+</span><span id="Player-56"><a href="#Player-56"><span class="linenos"> 56</span></a>
+</span><span id="Player-57"><a href="#Player-57"><span class="linenos"> 57</span></a><span class="sd">        Args:</span>
+</span><span id="Player-58"><a href="#Player-58"><span class="linenos"> 58</span></a><span class="sd">            jump_strength (int): The strength of the jump.</span>
+</span><span id="Player-59"><a href="#Player-59"><span class="linenos"> 59</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player-60"><a href="#Player-60"><span class="linenos"> 60</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
+</span><span id="Player-61"><a href="#Player-61"><span class="linenos"> 61</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="n">jump_strength</span>
+</span><span id="Player-62"><a href="#Player-62"><span class="linenos"> 62</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="Player-63"><a href="#Player-63"><span class="linenos"> 63</span></a>
+</span><span id="Player-64"><a href="#Player-64"><span class="linenos"> 64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player-65"><a href="#Player-65"><span class="linenos"> 65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player-66"><a href="#Player-66"><span class="linenos"> 66</span></a><span class="sd">        Updates the player&#39;s position based on gravity and velocity.</span>
+</span><span id="Player-67"><a href="#Player-67"><span class="linenos"> 67</span></a>
+</span><span id="Player-68"><a href="#Player-68"><span class="linenos"> 68</span></a><span class="sd">        Args:</span>
+</span><span id="Player-69"><a href="#Player-69"><span class="linenos"> 69</span></a><span class="sd">            gravity (int): The gravity affecting the player.</span>
+</span><span id="Player-70"><a href="#Player-70"><span class="linenos"> 70</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player-71"><a href="#Player-71"><span class="linenos"> 71</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
+</span><span id="Player-72"><a href="#Player-72"><span class="linenos"> 72</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">+=</span> <span class="n">gravity</span>
+</span><span id="Player-73"><a href="#Player-73"><span class="linenos"> 73</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span>
+</span><span id="Player-74"><a href="#Player-74"><span class="linenos"> 74</span></a>
+</span><span id="Player-75"><a href="#Player-75"><span class="linenos"> 75</span></a>            <span class="c1"># Prevent the player from falling below the ground</span>
+</span><span id="Player-76"><a href="#Player-76"><span class="linenos"> 76</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="Player-77"><a href="#Player-77"><span class="linenos"> 77</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span>
+</span><span id="Player-78"><a href="#Player-78"><span class="linenos"> 78</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="Player-79"><a href="#Player-79"><span class="linenos"> 79</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Player-80"><a href="#Player-80"><span class="linenos"> 80</span></a>
+</span><span id="Player-81"><a href="#Player-81"><span class="linenos"> 81</span></a>            <span class="c1"># Update the hitbox to follow the player</span>
+</span><span id="Player-82"><a href="#Player-82"><span class="linenos"> 82</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>
+</span><span id="Player-83"><a href="#Player-83"><span class="linenos"> 83</span></a>
+</span><span id="Player-84"><a href="#Player-84"><span class="linenos"> 84</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player-85"><a href="#Player-85"><span class="linenos"> 85</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player-86"><a href="#Player-86"><span class="linenos"> 86</span></a><span class="sd">        Draws the player on the screen.</span>
+</span><span id="Player-87"><a href="#Player-87"><span class="linenos"> 87</span></a>
+</span><span id="Player-88"><a href="#Player-88"><span class="linenos"> 88</span></a><span class="sd">        Args:</span>
+</span><span id="Player-89"><a href="#Player-89"><span class="linenos"> 89</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
+</span><span id="Player-90"><a href="#Player-90"><span class="linenos"> 90</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player-91"><a href="#Player-91"><span class="linenos"> 91</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
+</span><span id="Player-92"><a href="#Player-92"><span class="linenos"> 92</span></a>
+</span><span id="Player-93"><a href="#Player-93"><span class="linenos"> 93</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Player-94"><a href="#Player-94"><span class="linenos"> 94</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player-95"><a href="#Player-95"><span class="linenos"> 95</span></a><span class="sd">        Checks if the player is alive.</span>
+</span><span id="Player-96"><a href="#Player-96"><span class="linenos"> 96</span></a>
+</span><span id="Player-97"><a href="#Player-97"><span class="linenos"> 97</span></a><span class="sd">        Returns:</span>
+</span><span id="Player-98"><a href="#Player-98"><span class="linenos"> 98</span></a><span class="sd">            bool: True if the player is alive, False otherwise.</span>
+</span><span id="Player-99"><a href="#Player-99"><span class="linenos"> 99</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player-100"><a href="#Player-100"><span class="linenos">100</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span>
+</span><span id="Player-101"><a href="#Player-101"><span class="linenos">101</span></a>
+</span><span id="Player-102"><a href="#Player-102"><span class="linenos">102</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player-103"><a href="#Player-103"><span class="linenos">103</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player-104"><a href="#Player-104"><span class="linenos">104</span></a><span class="sd">        Sets the player&#39;s alive status.</span>
+</span><span id="Player-105"><a href="#Player-105"><span class="linenos">105</span></a>
+</span><span id="Player-106"><a href="#Player-106"><span class="linenos">106</span></a><span class="sd">        Args:</span>
+</span><span id="Player-107"><a href="#Player-107"><span class="linenos">107</span></a><span class="sd">            alive (bool): The new alive status.</span>
+</span><span id="Player-108"><a href="#Player-108"><span class="linenos">108</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player-109"><a href="#Player-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="n">alive</span>
+</span><span id="Player-110"><a href="#Player-110"><span class="linenos">110</span></a>
+</span><span id="Player-111"><a href="#Player-111"><span class="linenos">111</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="Player-112"><a href="#Player-112"><span class="linenos">112</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player-113"><a href="#Player-113"><span class="linenos">113</span></a><span class="sd">        Gets the player&#39;s hitbox.</span>
+</span><span id="Player-114"><a href="#Player-114"><span class="linenos">114</span></a>
+</span><span id="Player-115"><a href="#Player-115"><span class="linenos">115</span></a><span class="sd">        Returns:</span>
+</span><span id="Player-116"><a href="#Player-116"><span class="linenos">116</span></a><span class="sd">            pygame.Rect: The player&#39;s hitbox.</span>
+</span><span id="Player-117"><a href="#Player-117"><span class="linenos">117</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player-118"><a href="#Player-118"><span class="linenos">118</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
 </span></pre></div>
 
 
@@ -354,12 +358,14 @@ is alive or not.</p>
 </span><span id="Player.__init__-41"><a href="#Player.__init__-41"><span class="linenos">41</span></a><span class="sd">            player_file_path (str): The path to the player&#39;s image file.</span>
 </span><span id="Player.__init__-42"><a href="#Player.__init__-42"><span class="linenos">42</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Player.__init__-43"><a href="#Player.__init__-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">=</span> <span class="n">height</span>
-</span><span id="Player.__init__-44"><a href="#Player.__init__-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">player_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-</span><span id="Player.__init__-45"><a href="#Player.__init__-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
-</span><span id="Player.__init__-46"><a href="#Player.__init__-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Smaller hitbox for better collision detection</span>
-</span><span id="Player.__init__-47"><a href="#Player.__init__-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="Player.__init__-48"><a href="#Player.__init__-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="Player.__init__-49"><a href="#Player.__init__-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Player.__init__-44"><a href="#Player.__init__-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">player_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span>
+</span><span id="Player.__init__-45"><a href="#Player.__init__-45"><span class="linenos">45</span></a>                                              <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</span><span id="Player.__init__-46"><a href="#Player.__init__-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+</span><span id="Player.__init__-47"><a href="#Player.__init__-47"><span class="linenos">47</span></a>        <span class="c1"># Smaller hitbox for better collision detection</span>
+</span><span id="Player.__init__-48"><a href="#Player.__init__-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="Player.__init__-49"><a href="#Player.__init__-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="Player.__init__-50"><a href="#Player.__init__-50"><span class="linenos">50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="Player.__init__-51"><a href="#Player.__init__-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="kc">True</span>
 </span></pre></div>
 
 
@@ -383,16 +389,16 @@ is alive or not.</p>
 
     </div>
     <a class="headerlink" href="#Player.jump"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.jump-51"><a href="#Player.jump-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jump_strength</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player.jump-52"><a href="#Player.jump-52"><span class="linenos">52</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player.jump-53"><a href="#Player.jump-53"><span class="linenos">53</span></a><span class="sd">        Makes the player jump if they are on the ground and alive.</span>
-</span><span id="Player.jump-54"><a href="#Player.jump-54"><span class="linenos">54</span></a>
-</span><span id="Player.jump-55"><a href="#Player.jump-55"><span class="linenos">55</span></a><span class="sd">        Args:</span>
-</span><span id="Player.jump-56"><a href="#Player.jump-56"><span class="linenos">56</span></a><span class="sd">            jump_strength (int): The strength of the jump.</span>
-</span><span id="Player.jump-57"><a href="#Player.jump-57"><span class="linenos">57</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player.jump-58"><a href="#Player.jump-58"><span class="linenos">58</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
-</span><span id="Player.jump-59"><a href="#Player.jump-59"><span class="linenos">59</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="n">jump_strength</span>
-</span><span id="Player.jump-60"><a href="#Player.jump-60"><span class="linenos">60</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.jump-53"><a href="#Player.jump-53"><span class="linenos">53</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jump_strength</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player.jump-54"><a href="#Player.jump-54"><span class="linenos">54</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player.jump-55"><a href="#Player.jump-55"><span class="linenos">55</span></a><span class="sd">        Makes the player jump if they are on the ground and alive.</span>
+</span><span id="Player.jump-56"><a href="#Player.jump-56"><span class="linenos">56</span></a>
+</span><span id="Player.jump-57"><a href="#Player.jump-57"><span class="linenos">57</span></a><span class="sd">        Args:</span>
+</span><span id="Player.jump-58"><a href="#Player.jump-58"><span class="linenos">58</span></a><span class="sd">            jump_strength (int): The strength of the jump.</span>
+</span><span id="Player.jump-59"><a href="#Player.jump-59"><span class="linenos">59</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player.jump-60"><a href="#Player.jump-60"><span class="linenos">60</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
+</span><span id="Player.jump-61"><a href="#Player.jump-61"><span class="linenos">61</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="n">jump_strength</span>
+</span><span id="Player.jump-62"><a href="#Player.jump-62"><span class="linenos">62</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">False</span>
 </span></pre></div>
 
 
@@ -415,25 +421,25 @@ is alive or not.</p>
 
     </div>
     <a class="headerlink" href="#Player.update"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.update-62"><a href="#Player.update-62"><span class="linenos">62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player.update-63"><a href="#Player.update-63"><span class="linenos">63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player.update-64"><a href="#Player.update-64"><span class="linenos">64</span></a><span class="sd">        Updates the player&#39;s position based on gravity and velocity.</span>
-</span><span id="Player.update-65"><a href="#Player.update-65"><span class="linenos">65</span></a>
-</span><span id="Player.update-66"><a href="#Player.update-66"><span class="linenos">66</span></a><span class="sd">        Args:</span>
-</span><span id="Player.update-67"><a href="#Player.update-67"><span class="linenos">67</span></a><span class="sd">            gravity (int): The gravity affecting the player.</span>
-</span><span id="Player.update-68"><a href="#Player.update-68"><span class="linenos">68</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player.update-69"><a href="#Player.update-69"><span class="linenos">69</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
-</span><span id="Player.update-70"><a href="#Player.update-70"><span class="linenos">70</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">+=</span> <span class="n">gravity</span>
-</span><span id="Player.update-71"><a href="#Player.update-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span>
-</span><span id="Player.update-72"><a href="#Player.update-72"><span class="linenos">72</span></a>
-</span><span id="Player.update-73"><a href="#Player.update-73"><span class="linenos">73</span></a>            <span class="c1"># Prevent the player from falling below the ground</span>
-</span><span id="Player.update-74"><a href="#Player.update-74"><span class="linenos">74</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span><span class="p">:</span>
-</span><span id="Player.update-75"><a href="#Player.update-75"><span class="linenos">75</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span>
-</span><span id="Player.update-76"><a href="#Player.update-76"><span class="linenos">76</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="Player.update-77"><a href="#Player.update-77"><span class="linenos">77</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="Player.update-78"><a href="#Player.update-78"><span class="linenos">78</span></a>
-</span><span id="Player.update-79"><a href="#Player.update-79"><span class="linenos">79</span></a>            <span class="c1"># Update the hitbox to follow the player</span>
-</span><span id="Player.update-80"><a href="#Player.update-80"><span class="linenos">80</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.update-64"><a href="#Player.update-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player.update-65"><a href="#Player.update-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player.update-66"><a href="#Player.update-66"><span class="linenos">66</span></a><span class="sd">        Updates the player&#39;s position based on gravity and velocity.</span>
+</span><span id="Player.update-67"><a href="#Player.update-67"><span class="linenos">67</span></a>
+</span><span id="Player.update-68"><a href="#Player.update-68"><span class="linenos">68</span></a><span class="sd">        Args:</span>
+</span><span id="Player.update-69"><a href="#Player.update-69"><span class="linenos">69</span></a><span class="sd">            gravity (int): The gravity affecting the player.</span>
+</span><span id="Player.update-70"><a href="#Player.update-70"><span class="linenos">70</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player.update-71"><a href="#Player.update-71"><span class="linenos">71</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span><span class="p">:</span>
+</span><span id="Player.update-72"><a href="#Player.update-72"><span class="linenos">72</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">+=</span> <span class="n">gravity</span>
+</span><span id="Player.update-73"><a href="#Player.update-73"><span class="linenos">73</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span>
+</span><span id="Player.update-74"><a href="#Player.update-74"><span class="linenos">74</span></a>
+</span><span id="Player.update-75"><a href="#Player.update-75"><span class="linenos">75</span></a>            <span class="c1"># Prevent the player from falling below the ground</span>
+</span><span id="Player.update-76"><a href="#Player.update-76"><span class="linenos">76</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="Player.update-77"><a href="#Player.update-77"><span class="linenos">77</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">200</span>
+</span><span id="Player.update-78"><a href="#Player.update-78"><span class="linenos">78</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__vel_y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="Player.update-79"><a href="#Player.update-79"><span class="linenos">79</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">__on_ground</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Player.update-80"><a href="#Player.update-80"><span class="linenos">80</span></a>
+</span><span id="Player.update-81"><a href="#Player.update-81"><span class="linenos">81</span></a>            <span class="c1"># Update the hitbox to follow the player</span>
+</span><span id="Player.update-82"><a href="#Player.update-82"><span class="linenos">82</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>
 </span></pre></div>
 
 
@@ -456,14 +462,14 @@ is alive or not.</p>
 
     </div>
     <a class="headerlink" href="#Player.draw"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.draw-82"><a href="#Player.draw-82"><span class="linenos">82</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player.draw-83"><a href="#Player.draw-83"><span class="linenos">83</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player.draw-84"><a href="#Player.draw-84"><span class="linenos">84</span></a><span class="sd">        Draws the player on the screen.</span>
-</span><span id="Player.draw-85"><a href="#Player.draw-85"><span class="linenos">85</span></a>
-</span><span id="Player.draw-86"><a href="#Player.draw-86"><span class="linenos">86</span></a><span class="sd">        Args:</span>
-</span><span id="Player.draw-87"><a href="#Player.draw-87"><span class="linenos">87</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
-</span><span id="Player.draw-88"><a href="#Player.draw-88"><span class="linenos">88</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player.draw-89"><a href="#Player.draw-89"><span class="linenos">89</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.draw-84"><a href="#Player.draw-84"><span class="linenos">84</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player.draw-85"><a href="#Player.draw-85"><span class="linenos">85</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player.draw-86"><a href="#Player.draw-86"><span class="linenos">86</span></a><span class="sd">        Draws the player on the screen.</span>
+</span><span id="Player.draw-87"><a href="#Player.draw-87"><span class="linenos">87</span></a>
+</span><span id="Player.draw-88"><a href="#Player.draw-88"><span class="linenos">88</span></a><span class="sd">        Args:</span>
+</span><span id="Player.draw-89"><a href="#Player.draw-89"><span class="linenos">89</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
+</span><span id="Player.draw-90"><a href="#Player.draw-90"><span class="linenos">90</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player.draw-91"><a href="#Player.draw-91"><span class="linenos">91</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -486,14 +492,14 @@ is alive or not.</p>
 
     </div>
     <a class="headerlink" href="#Player.is_alive"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.is_alive-91"><a href="#Player.is_alive-91"><span class="linenos">91</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Player.is_alive-92"><a href="#Player.is_alive-92"><span class="linenos">92</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player.is_alive-93"><a href="#Player.is_alive-93"><span class="linenos">93</span></a><span class="sd">        Checks if the player is alive.</span>
-</span><span id="Player.is_alive-94"><a href="#Player.is_alive-94"><span class="linenos">94</span></a>
-</span><span id="Player.is_alive-95"><a href="#Player.is_alive-95"><span class="linenos">95</span></a><span class="sd">        Returns:</span>
-</span><span id="Player.is_alive-96"><a href="#Player.is_alive-96"><span class="linenos">96</span></a><span class="sd">            bool: True if the player is alive, False otherwise.</span>
-</span><span id="Player.is_alive-97"><a href="#Player.is_alive-97"><span class="linenos">97</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player.is_alive-98"><a href="#Player.is_alive-98"><span class="linenos">98</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.is_alive-93"><a href="#Player.is_alive-93"><span class="linenos"> 93</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Player.is_alive-94"><a href="#Player.is_alive-94"><span class="linenos"> 94</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player.is_alive-95"><a href="#Player.is_alive-95"><span class="linenos"> 95</span></a><span class="sd">        Checks if the player is alive.</span>
+</span><span id="Player.is_alive-96"><a href="#Player.is_alive-96"><span class="linenos"> 96</span></a>
+</span><span id="Player.is_alive-97"><a href="#Player.is_alive-97"><span class="linenos"> 97</span></a><span class="sd">        Returns:</span>
+</span><span id="Player.is_alive-98"><a href="#Player.is_alive-98"><span class="linenos"> 98</span></a><span class="sd">            bool: True if the player is alive, False otherwise.</span>
+</span><span id="Player.is_alive-99"><a href="#Player.is_alive-99"><span class="linenos"> 99</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player.is_alive-100"><a href="#Player.is_alive-100"><span class="linenos">100</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span>
 </span></pre></div>
 
 
@@ -516,14 +522,14 @@ is alive or not.</p>
 
     </div>
     <a class="headerlink" href="#Player.set_is_alive"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.set_is_alive-100"><a href="#Player.set_is_alive-100"><span class="linenos">100</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player.set_is_alive-101"><a href="#Player.set_is_alive-101"><span class="linenos">101</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player.set_is_alive-102"><a href="#Player.set_is_alive-102"><span class="linenos">102</span></a><span class="sd">        Sets the player&#39;s alive status.</span>
-</span><span id="Player.set_is_alive-103"><a href="#Player.set_is_alive-103"><span class="linenos">103</span></a>
-</span><span id="Player.set_is_alive-104"><a href="#Player.set_is_alive-104"><span class="linenos">104</span></a><span class="sd">        Args:</span>
-</span><span id="Player.set_is_alive-105"><a href="#Player.set_is_alive-105"><span class="linenos">105</span></a><span class="sd">            alive (bool): The new alive status.</span>
-</span><span id="Player.set_is_alive-106"><a href="#Player.set_is_alive-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player.set_is_alive-107"><a href="#Player.set_is_alive-107"><span class="linenos">107</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="n">alive</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.set_is_alive-102"><a href="#Player.set_is_alive-102"><span class="linenos">102</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Player.set_is_alive-103"><a href="#Player.set_is_alive-103"><span class="linenos">103</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player.set_is_alive-104"><a href="#Player.set_is_alive-104"><span class="linenos">104</span></a><span class="sd">        Sets the player&#39;s alive status.</span>
+</span><span id="Player.set_is_alive-105"><a href="#Player.set_is_alive-105"><span class="linenos">105</span></a>
+</span><span id="Player.set_is_alive-106"><a href="#Player.set_is_alive-106"><span class="linenos">106</span></a><span class="sd">        Args:</span>
+</span><span id="Player.set_is_alive-107"><a href="#Player.set_is_alive-107"><span class="linenos">107</span></a><span class="sd">            alive (bool): The new alive status.</span>
+</span><span id="Player.set_is_alive-108"><a href="#Player.set_is_alive-108"><span class="linenos">108</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player.set_is_alive-109"><a href="#Player.set_is_alive-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__alive</span> <span class="o">=</span> <span class="n">alive</span>
 </span></pre></div>
 
 
@@ -546,14 +552,14 @@ is alive or not.</p>
 
     </div>
     <a class="headerlink" href="#Player.get_hitbox"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.get_hitbox-109"><a href="#Player.get_hitbox-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="Player.get_hitbox-110"><a href="#Player.get_hitbox-110"><span class="linenos">110</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Player.get_hitbox-111"><a href="#Player.get_hitbox-111"><span class="linenos">111</span></a><span class="sd">        Gets the player&#39;s hitbox.</span>
-</span><span id="Player.get_hitbox-112"><a href="#Player.get_hitbox-112"><span class="linenos">112</span></a>
-</span><span id="Player.get_hitbox-113"><a href="#Player.get_hitbox-113"><span class="linenos">113</span></a><span class="sd">        Returns:</span>
-</span><span id="Player.get_hitbox-114"><a href="#Player.get_hitbox-114"><span class="linenos">114</span></a><span class="sd">            pygame.Rect: The player&#39;s hitbox.</span>
-</span><span id="Player.get_hitbox-115"><a href="#Player.get_hitbox-115"><span class="linenos">115</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Player.get_hitbox-116"><a href="#Player.get_hitbox-116"><span class="linenos">116</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Player.get_hitbox-111"><a href="#Player.get_hitbox-111"><span class="linenos">111</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="Player.get_hitbox-112"><a href="#Player.get_hitbox-112"><span class="linenos">112</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player.get_hitbox-113"><a href="#Player.get_hitbox-113"><span class="linenos">113</span></a><span class="sd">        Gets the player&#39;s hitbox.</span>
+</span><span id="Player.get_hitbox-114"><a href="#Player.get_hitbox-114"><span class="linenos">114</span></a>
+</span><span id="Player.get_hitbox-115"><a href="#Player.get_hitbox-115"><span class="linenos">115</span></a><span class="sd">        Returns:</span>
+</span><span id="Player.get_hitbox-116"><a href="#Player.get_hitbox-116"><span class="linenos">116</span></a><span class="sd">            pygame.Rect: The player&#39;s hitbox.</span>
+</span><span id="Player.get_hitbox-117"><a href="#Player.get_hitbox-117"><span class="linenos">117</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player.get_hitbox-118"><a href="#Player.get_hitbox-118"><span class="linenos">118</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
 </span></pre></div>
 
 

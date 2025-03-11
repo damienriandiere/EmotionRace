@@ -139,43 +139,44 @@ on the screen and managing its collision detection with other game elements.</p>
 </span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>        <span class="n">y_position</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">150</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">250</span><span class="p">])</span>
 </span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_position</span><span class="p">))</span>
 </span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Smaller hitbox for better collision detection</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">        Updates the obstacle&#39;s position based on its speed.</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__speed</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>  <span class="c1"># Update the hitbox</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="sd">        Draws the obstacle on the screen.</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="sd">        Args:</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>
-</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">        Gets the obstacle&#39;s hitbox.</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>
-</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="sd">        Returns:</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s hitbox.</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>
-</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a><span class="sd">        Gets the obstacle&#39;s rectangle.</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a>
-</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a><span class="sd">        Returns:</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s rectangle.</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>        <span class="c1"># Smaller hitbox for better collision detection</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">        Updates the obstacle&#39;s position based on its speed.</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__speed</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>  <span class="c1"># Update the hitbox</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="sd">        Draws the obstacle on the screen.</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a><span class="sd">        Gets the obstacle&#39;s hitbox.</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="sd">        Returns:</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s hitbox.</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>
+</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a><span class="sd">        Gets the obstacle&#39;s rectangle.</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a>
+</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a><span class="sd">        Returns:</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s rectangle.</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos">90</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span>
 </span></pre></div>
 
 
@@ -223,43 +224,44 @@ on the screen and managing its collision detection with other game elements.</p>
 </span><span id="Obstacle-51"><a href="#Obstacle-51"><span class="linenos">51</span></a>        <span class="n">y_position</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">150</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">250</span><span class="p">])</span>
 </span><span id="Obstacle-52"><a href="#Obstacle-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_position</span><span class="p">))</span>
 </span><span id="Obstacle-53"><a href="#Obstacle-53"><span class="linenos">53</span></a>
-</span><span id="Obstacle-54"><a href="#Obstacle-54"><span class="linenos">54</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Smaller hitbox for better collision detection</span>
-</span><span id="Obstacle-55"><a href="#Obstacle-55"><span class="linenos">55</span></a>
-</span><span id="Obstacle-56"><a href="#Obstacle-56"><span class="linenos">56</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Obstacle-57"><a href="#Obstacle-57"><span class="linenos">57</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle-58"><a href="#Obstacle-58"><span class="linenos">58</span></a><span class="sd">        Updates the obstacle&#39;s position based on its speed.</span>
-</span><span id="Obstacle-59"><a href="#Obstacle-59"><span class="linenos">59</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle-60"><a href="#Obstacle-60"><span class="linenos">60</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__speed</span>
-</span><span id="Obstacle-61"><a href="#Obstacle-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>  <span class="c1"># Update the hitbox</span>
-</span><span id="Obstacle-62"><a href="#Obstacle-62"><span class="linenos">62</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="Obstacle-63"><a href="#Obstacle-63"><span class="linenos">63</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
-</span><span id="Obstacle-64"><a href="#Obstacle-64"><span class="linenos">64</span></a>
-</span><span id="Obstacle-65"><a href="#Obstacle-65"><span class="linenos">65</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Obstacle-66"><a href="#Obstacle-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle-67"><a href="#Obstacle-67"><span class="linenos">67</span></a><span class="sd">        Draws the obstacle on the screen.</span>
-</span><span id="Obstacle-68"><a href="#Obstacle-68"><span class="linenos">68</span></a>
-</span><span id="Obstacle-69"><a href="#Obstacle-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
-</span><span id="Obstacle-70"><a href="#Obstacle-70"><span class="linenos">70</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
-</span><span id="Obstacle-71"><a href="#Obstacle-71"><span class="linenos">71</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle-72"><a href="#Obstacle-72"><span class="linenos">72</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
-</span><span id="Obstacle-73"><a href="#Obstacle-73"><span class="linenos">73</span></a>
-</span><span id="Obstacle-74"><a href="#Obstacle-74"><span class="linenos">74</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="Obstacle-75"><a href="#Obstacle-75"><span class="linenos">75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle-76"><a href="#Obstacle-76"><span class="linenos">76</span></a><span class="sd">        Gets the obstacle&#39;s hitbox.</span>
-</span><span id="Obstacle-77"><a href="#Obstacle-77"><span class="linenos">77</span></a>
-</span><span id="Obstacle-78"><a href="#Obstacle-78"><span class="linenos">78</span></a><span class="sd">        Returns:</span>
-</span><span id="Obstacle-79"><a href="#Obstacle-79"><span class="linenos">79</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s hitbox.</span>
-</span><span id="Obstacle-80"><a href="#Obstacle-80"><span class="linenos">80</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle-81"><a href="#Obstacle-81"><span class="linenos">81</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
-</span><span id="Obstacle-82"><a href="#Obstacle-82"><span class="linenos">82</span></a>
-</span><span id="Obstacle-83"><a href="#Obstacle-83"><span class="linenos">83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="Obstacle-84"><a href="#Obstacle-84"><span class="linenos">84</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle-85"><a href="#Obstacle-85"><span class="linenos">85</span></a><span class="sd">        Gets the obstacle&#39;s rectangle.</span>
-</span><span id="Obstacle-86"><a href="#Obstacle-86"><span class="linenos">86</span></a>
-</span><span id="Obstacle-87"><a href="#Obstacle-87"><span class="linenos">87</span></a><span class="sd">        Returns:</span>
-</span><span id="Obstacle-88"><a href="#Obstacle-88"><span class="linenos">88</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s rectangle.</span>
-</span><span id="Obstacle-89"><a href="#Obstacle-89"><span class="linenos">89</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle-90"><a href="#Obstacle-90"><span class="linenos">90</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span>
+</span><span id="Obstacle-54"><a href="#Obstacle-54"><span class="linenos">54</span></a>        <span class="c1"># Smaller hitbox for better collision detection</span>
+</span><span id="Obstacle-55"><a href="#Obstacle-55"><span class="linenos">55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="Obstacle-56"><a href="#Obstacle-56"><span class="linenos">56</span></a>
+</span><span id="Obstacle-57"><a href="#Obstacle-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Obstacle-58"><a href="#Obstacle-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle-59"><a href="#Obstacle-59"><span class="linenos">59</span></a><span class="sd">        Updates the obstacle&#39;s position based on its speed.</span>
+</span><span id="Obstacle-60"><a href="#Obstacle-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle-61"><a href="#Obstacle-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__speed</span>
+</span><span id="Obstacle-62"><a href="#Obstacle-62"><span class="linenos">62</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>  <span class="c1"># Update the hitbox</span>
+</span><span id="Obstacle-63"><a href="#Obstacle-63"><span class="linenos">63</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Obstacle-64"><a href="#Obstacle-64"><span class="linenos">64</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+</span><span id="Obstacle-65"><a href="#Obstacle-65"><span class="linenos">65</span></a>
+</span><span id="Obstacle-66"><a href="#Obstacle-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Obstacle-67"><a href="#Obstacle-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle-68"><a href="#Obstacle-68"><span class="linenos">68</span></a><span class="sd">        Draws the obstacle on the screen.</span>
+</span><span id="Obstacle-69"><a href="#Obstacle-69"><span class="linenos">69</span></a>
+</span><span id="Obstacle-70"><a href="#Obstacle-70"><span class="linenos">70</span></a><span class="sd">        Args:</span>
+</span><span id="Obstacle-71"><a href="#Obstacle-71"><span class="linenos">71</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
+</span><span id="Obstacle-72"><a href="#Obstacle-72"><span class="linenos">72</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle-73"><a href="#Obstacle-73"><span class="linenos">73</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
+</span><span id="Obstacle-74"><a href="#Obstacle-74"><span class="linenos">74</span></a>
+</span><span id="Obstacle-75"><a href="#Obstacle-75"><span class="linenos">75</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="Obstacle-76"><a href="#Obstacle-76"><span class="linenos">76</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle-77"><a href="#Obstacle-77"><span class="linenos">77</span></a><span class="sd">        Gets the obstacle&#39;s hitbox.</span>
+</span><span id="Obstacle-78"><a href="#Obstacle-78"><span class="linenos">78</span></a>
+</span><span id="Obstacle-79"><a href="#Obstacle-79"><span class="linenos">79</span></a><span class="sd">        Returns:</span>
+</span><span id="Obstacle-80"><a href="#Obstacle-80"><span class="linenos">80</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s hitbox.</span>
+</span><span id="Obstacle-81"><a href="#Obstacle-81"><span class="linenos">81</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle-82"><a href="#Obstacle-82"><span class="linenos">82</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
+</span><span id="Obstacle-83"><a href="#Obstacle-83"><span class="linenos">83</span></a>
+</span><span id="Obstacle-84"><a href="#Obstacle-84"><span class="linenos">84</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="Obstacle-85"><a href="#Obstacle-85"><span class="linenos">85</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle-86"><a href="#Obstacle-86"><span class="linenos">86</span></a><span class="sd">        Gets the obstacle&#39;s rectangle.</span>
+</span><span id="Obstacle-87"><a href="#Obstacle-87"><span class="linenos">87</span></a>
+</span><span id="Obstacle-88"><a href="#Obstacle-88"><span class="linenos">88</span></a><span class="sd">        Returns:</span>
+</span><span id="Obstacle-89"><a href="#Obstacle-89"><span class="linenos">89</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s rectangle.</span>
+</span><span id="Obstacle-90"><a href="#Obstacle-90"><span class="linenos">90</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle-91"><a href="#Obstacle-91"><span class="linenos">91</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span>
 </span></pre></div>
 
 
@@ -304,7 +306,8 @@ on the screen and managing its collision detection with other game elements.</p>
 </span><span id="Obstacle.__init__-51"><a href="#Obstacle.__init__-51"><span class="linenos">51</span></a>        <span class="n">y_position</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">150</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">-</span> <span class="mi">250</span><span class="p">])</span>
 </span><span id="Obstacle.__init__-52"><a href="#Obstacle.__init__-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_position</span><span class="p">))</span>
 </span><span id="Obstacle.__init__-53"><a href="#Obstacle.__init__-53"><span class="linenos">53</span></a>
-</span><span id="Obstacle.__init__-54"><a href="#Obstacle.__init__-54"><span class="linenos">54</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Smaller hitbox for better collision detection</span>
+</span><span id="Obstacle.__init__-54"><a href="#Obstacle.__init__-54"><span class="linenos">54</span></a>        <span class="c1"># Smaller hitbox for better collision detection</span>
+</span><span id="Obstacle.__init__-55"><a href="#Obstacle.__init__-55"><span class="linenos">55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -330,14 +333,14 @@ on the screen and managing its collision detection with other game elements.</p>
 
     </div>
     <a class="headerlink" href="#Obstacle.update"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.update-56"><a href="#Obstacle.update-56"><span class="linenos">56</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Obstacle.update-57"><a href="#Obstacle.update-57"><span class="linenos">57</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle.update-58"><a href="#Obstacle.update-58"><span class="linenos">58</span></a><span class="sd">        Updates the obstacle&#39;s position based on its speed.</span>
-</span><span id="Obstacle.update-59"><a href="#Obstacle.update-59"><span class="linenos">59</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle.update-60"><a href="#Obstacle.update-60"><span class="linenos">60</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__speed</span>
-</span><span id="Obstacle.update-61"><a href="#Obstacle.update-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>  <span class="c1"># Update the hitbox</span>
-</span><span id="Obstacle.update-62"><a href="#Obstacle.update-62"><span class="linenos">62</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="Obstacle.update-63"><a href="#Obstacle.update-63"><span class="linenos">63</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.update-57"><a href="#Obstacle.update-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Obstacle.update-58"><a href="#Obstacle.update-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle.update-59"><a href="#Obstacle.update-59"><span class="linenos">59</span></a><span class="sd">        Updates the obstacle&#39;s position based on its speed.</span>
+</span><span id="Obstacle.update-60"><a href="#Obstacle.update-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle.update-61"><a href="#Obstacle.update-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__speed</span>
+</span><span id="Obstacle.update-62"><a href="#Obstacle.update-62"><span class="linenos">62</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span>  <span class="c1"># Update the hitbox</span>
+</span><span id="Obstacle.update-63"><a href="#Obstacle.update-63"><span class="linenos">63</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Obstacle.update-64"><a href="#Obstacle.update-64"><span class="linenos">64</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -357,14 +360,14 @@ on the screen and managing its collision detection with other game elements.</p>
 
     </div>
     <a class="headerlink" href="#Obstacle.draw"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.draw-65"><a href="#Obstacle.draw-65"><span class="linenos">65</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Obstacle.draw-66"><a href="#Obstacle.draw-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle.draw-67"><a href="#Obstacle.draw-67"><span class="linenos">67</span></a><span class="sd">        Draws the obstacle on the screen.</span>
-</span><span id="Obstacle.draw-68"><a href="#Obstacle.draw-68"><span class="linenos">68</span></a>
-</span><span id="Obstacle.draw-69"><a href="#Obstacle.draw-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
-</span><span id="Obstacle.draw-70"><a href="#Obstacle.draw-70"><span class="linenos">70</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
-</span><span id="Obstacle.draw-71"><a href="#Obstacle.draw-71"><span class="linenos">71</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle.draw-72"><a href="#Obstacle.draw-72"><span class="linenos">72</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.draw-66"><a href="#Obstacle.draw-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Obstacle.draw-67"><a href="#Obstacle.draw-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle.draw-68"><a href="#Obstacle.draw-68"><span class="linenos">68</span></a><span class="sd">        Draws the obstacle on the screen.</span>
+</span><span id="Obstacle.draw-69"><a href="#Obstacle.draw-69"><span class="linenos">69</span></a>
+</span><span id="Obstacle.draw-70"><a href="#Obstacle.draw-70"><span class="linenos">70</span></a><span class="sd">        Args:</span>
+</span><span id="Obstacle.draw-71"><a href="#Obstacle.draw-71"><span class="linenos">71</span></a><span class="sd">            screen (pygame.Surface): The game screen to draw on.</span>
+</span><span id="Obstacle.draw-72"><a href="#Obstacle.draw-72"><span class="linenos">72</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle.draw-73"><a href="#Obstacle.draw-73"><span class="linenos">73</span></a>        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obstacle_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span><span class="o">.</span><span class="n">topleft</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -387,14 +390,14 @@ on the screen and managing its collision detection with other game elements.</p>
 
     </div>
     <a class="headerlink" href="#Obstacle.get_hitbox"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.get_hitbox-74"><a href="#Obstacle.get_hitbox-74"><span class="linenos">74</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="Obstacle.get_hitbox-75"><a href="#Obstacle.get_hitbox-75"><span class="linenos">75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle.get_hitbox-76"><a href="#Obstacle.get_hitbox-76"><span class="linenos">76</span></a><span class="sd">        Gets the obstacle&#39;s hitbox.</span>
-</span><span id="Obstacle.get_hitbox-77"><a href="#Obstacle.get_hitbox-77"><span class="linenos">77</span></a>
-</span><span id="Obstacle.get_hitbox-78"><a href="#Obstacle.get_hitbox-78"><span class="linenos">78</span></a><span class="sd">        Returns:</span>
-</span><span id="Obstacle.get_hitbox-79"><a href="#Obstacle.get_hitbox-79"><span class="linenos">79</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s hitbox.</span>
-</span><span id="Obstacle.get_hitbox-80"><a href="#Obstacle.get_hitbox-80"><span class="linenos">80</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle.get_hitbox-81"><a href="#Obstacle.get_hitbox-81"><span class="linenos">81</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.get_hitbox-75"><a href="#Obstacle.get_hitbox-75"><span class="linenos">75</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_hitbox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="Obstacle.get_hitbox-76"><a href="#Obstacle.get_hitbox-76"><span class="linenos">76</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle.get_hitbox-77"><a href="#Obstacle.get_hitbox-77"><span class="linenos">77</span></a><span class="sd">        Gets the obstacle&#39;s hitbox.</span>
+</span><span id="Obstacle.get_hitbox-78"><a href="#Obstacle.get_hitbox-78"><span class="linenos">78</span></a>
+</span><span id="Obstacle.get_hitbox-79"><a href="#Obstacle.get_hitbox-79"><span class="linenos">79</span></a><span class="sd">        Returns:</span>
+</span><span id="Obstacle.get_hitbox-80"><a href="#Obstacle.get_hitbox-80"><span class="linenos">80</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s hitbox.</span>
+</span><span id="Obstacle.get_hitbox-81"><a href="#Obstacle.get_hitbox-81"><span class="linenos">81</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle.get_hitbox-82"><a href="#Obstacle.get_hitbox-82"><span class="linenos">82</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hitbox</span>
 </span></pre></div>
 
 
@@ -417,14 +420,14 @@ on the screen and managing its collision detection with other game elements.</p>
 
     </div>
     <a class="headerlink" href="#Obstacle.get_rect"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.get_rect-83"><a href="#Obstacle.get_rect-83"><span class="linenos">83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
-</span><span id="Obstacle.get_rect-84"><a href="#Obstacle.get_rect-84"><span class="linenos">84</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Obstacle.get_rect-85"><a href="#Obstacle.get_rect-85"><span class="linenos">85</span></a><span class="sd">        Gets the obstacle&#39;s rectangle.</span>
-</span><span id="Obstacle.get_rect-86"><a href="#Obstacle.get_rect-86"><span class="linenos">86</span></a>
-</span><span id="Obstacle.get_rect-87"><a href="#Obstacle.get_rect-87"><span class="linenos">87</span></a><span class="sd">        Returns:</span>
-</span><span id="Obstacle.get_rect-88"><a href="#Obstacle.get_rect-88"><span class="linenos">88</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s rectangle.</span>
-</span><span id="Obstacle.get_rect-89"><a href="#Obstacle.get_rect-89"><span class="linenos">89</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Obstacle.get_rect-90"><a href="#Obstacle.get_rect-90"><span class="linenos">90</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Obstacle.get_rect-84"><a href="#Obstacle.get_rect-84"><span class="linenos">84</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+</span><span id="Obstacle.get_rect-85"><a href="#Obstacle.get_rect-85"><span class="linenos">85</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Obstacle.get_rect-86"><a href="#Obstacle.get_rect-86"><span class="linenos">86</span></a><span class="sd">        Gets the obstacle&#39;s rectangle.</span>
+</span><span id="Obstacle.get_rect-87"><a href="#Obstacle.get_rect-87"><span class="linenos">87</span></a>
+</span><span id="Obstacle.get_rect-88"><a href="#Obstacle.get_rect-88"><span class="linenos">88</span></a><span class="sd">        Returns:</span>
+</span><span id="Obstacle.get_rect-89"><a href="#Obstacle.get_rect-89"><span class="linenos">89</span></a><span class="sd">            pygame.Rect: The obstacle&#39;s rectangle.</span>
+</span><span id="Obstacle.get_rect-90"><a href="#Obstacle.get_rect-90"><span class="linenos">90</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Obstacle.get_rect-91"><a href="#Obstacle.get_rect-91"><span class="linenos">91</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span>
 </span></pre></div>
 
 

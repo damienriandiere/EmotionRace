@@ -41,7 +41,6 @@ import pygame
 from scipy.signal import find_peaks
 import matplotlib.pyplot as plt
 import portalocker
-import imageio
 
 class StressDetectionSystem:
     """
@@ -86,7 +85,6 @@ class StressDetectionSystem:
             
             # Load file paths
             self.log_filename = self.config['PATHS']['LOG_FILE']
-            self.video_filename = self.config['PATHS']['VIDEO_FILE']
             self.graph_filename = self.config['PATHS']['GRAPH_FILE']
             
         except FileNotFoundError:
@@ -152,30 +150,6 @@ class StressDetectionSystem:
         except ValueError as e:
             print(f"Invalid parameter value: {e}")
             sys.exit()
-
-    def setup_video_recording(self) -> None:
-        """
-        Set up video recording using OpenCV.
-        """
-        self.video_filename = self.config['PATHS']['VIDEO_FILE']
-        self.video_writer = imageio.get_writer(self.video_filename, fps=30)
-    
-    def record_frame(self) -> None:
-        """
-        Capture the current Pygame screen and write it to the video file.
-        """
-        if self.video_writer is None:
-            return
-
-        try:
-            # Get the current Pygame surface as a numpy array
-            frame = pygame.surfarray.array3d(self.screen)
-            # Convert from (width, height, 3) to (height, width, 3)
-            frame = np.transpose(frame, (1, 0, 2))
-            # Write the frame to the video file
-            self.video_writer.append_data(frame)
-        except Exception as e:
-            print(f"Error recording frame: {e}")
 
     def initialize_variables(self) -> None:
         """
@@ -449,18 +423,26 @@ class StressDetectionSystem:
         """
         print("Calibration complete, starting real-time analysis...")
 
-        if len(self.ecg_buffer) >= 20 * self.sampling_rate * 0.8:
+        required_length = 15 * self.sampling_rate
+        print(f"Required ECG Buffer Length for Calibration: {required_length}")
+
+        if len(self.ecg_buffer) >= 15 * self.sampling_rate:
             calculated_hr, calculated_sdnn, calculated_rmssd, calculated_pnn50 = self.calculate_hr_from_raw(
                 np.array(self.ecg_buffer), self.sampling_rate)
+            print(f"Calculated HR: {calculated_hr}, SDNN: {calculated_sdnn}, RMSSD: {calculated_rmssd}, PNN50: {calculated_pnn50}")
+
             self.calibration_values["HR"] = calculated_hr if calculated_hr > 0 else 70
             self.calibration_values["SDNN"] = calculated_sdnn if calculated_sdnn > 0 else 50
             self.calibration_values["RMSSD"] = calculated_rmssd if calculated_rmssd > 0 else 30
             self.calibration_values["PNN50"] = calculated_pnn50 if calculated_pnn50 > 0 else 10
+        else:
+            print("Not enough ECG data for calibration.")
 
         if len(self.eda_buffer) > 0:
             self.calibration_values["EDA"] = np.mean(self.eda_buffer)
 
         print(f"Calibration values: {self.calibration_values}")
+
 
     def process_data(self) -> bool:
         """
@@ -481,10 +463,11 @@ class StressDetectionSystem:
             self.ecg_values.append(self.last_ecg_value)
             self.ecg_buffer.extend(ecg)
 
+
             if len(self.ecg_values) > self.window_size[0]:
                 self.ecg_values.pop(0)
 
-            buffer_size = 20 * self.sampling_rate
+            buffer_size = 15 * self.sampling_rate
             if len(self.ecg_buffer) > buffer_size:
                 self.ecg_buffer = self.ecg_buffer[-buffer_size:]
             if len(self.eda_buffer) > buffer_size:
@@ -509,7 +492,7 @@ class StressDetectionSystem:
         """
         Calculate metrics from buffer data.
         """
-        if len(self.ecg_buffer) >= 20 * self.sampling_rate * 0.9:
+        if len(self.ecg_buffer) >= 15 * self.sampling_rate :
             calculated_hr,calculated_sdnn, calculated_rmssd, calculated_pnn50 = self.calculate_hr_from_raw(
                 np.array(self.ecg_buffer), self.sampling_rate)
 
@@ -571,16 +554,22 @@ class StressDetectionSystem:
         """
         Main application loop.
         """
-        self.setup_video_recording()  # Initialize video recording
         running = True
+        calibration_done = False
+
         while running:
             current_time = time.time()
             self.recording_duration = current_time - self.start_time
 
-            if self.recording_duration >= 20 and not self.calibration_complete:
-                self.calibration_complete = True
-                self.calibrate()
-                self.analysis_started = True
+            # Continue to collect data until the buffer is sufficiently filled
+            if not calibration_done:
+                if len(self.ecg_buffer) >= 15 * self.sampling_rate:
+                    self.calibration_complete = True
+                    self.calibrate()
+                    self.analysis_started = True
+                    calibration_done = True
+                #else:
+                    #print(f"ECG Buffer Length: {len(self.ecg_buffer)}")
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -588,10 +577,21 @@ class StressDetectionSystem:
 
             if current_time - self.last_reconnect_time >= 60:
                 print("Automatic reconnection attempt...")
-                #self.device.stop()
-                self.device.close()
-                self.connect_sensor()
-                self.last_reconnect_time = current_time
+                try:
+                    print("Stopping and closing the device...")
+                    #self.device.stop()
+                    self.device.close()
+                    print("Device stopped and closed.")
+                except Exception as e:
+                    print(f"Error during disconnection: {e}")
+
+                try:
+                    print("Reconnecting to the sensor...")
+                    self.connect_sensor()
+                    self.last_reconnect_time = current_time
+                    print("Reconnection successful.")
+                except Exception as e:
+                    print(f"Reconnection failed: {e}")
 
             if not self.process_data():
                 break
@@ -608,7 +608,6 @@ class StressDetectionSystem:
                 self.draw_stress_curve()
 
             pygame.display.flip()
-            self.record_frame()  # Record the current frame
             pygame.time.delay(10)
 
         self.cleanup()
